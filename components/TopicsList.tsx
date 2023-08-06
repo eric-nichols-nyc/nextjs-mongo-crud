@@ -1,39 +1,43 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 import RemoveBtn from './RemoveBtn'
 import Link from 'next/link'
 import { HiPencilAlt } from 'react-icons/hi'
-
+import axios from 'axios'
 interface Topic {
   _id: string
   title: string
   description: string
 }
 
-// get all topics from db
-const getTopics = async () => {
-  try {
-    const res = await fetch(`${process.env.BASE_URL}/api/topics`, {
-      cache: "no-store",
-    });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch topics");
-    }
 
-    return res.json();
-  } catch (error) {
-    console.log("Error loading topics: ", error);
-  }
-};
+const TopicsList = () => {
 
-const TopicsList = async () => {
+  // get all topics from db
+  const getTopics = () => {
+
+    axios.get('/api/topics')
+      .then(response => {
+        // Handle response
+        console.log(response.data);
+      })
+      .catch(err => {
+        // Handle errors
+        console.error(err);
+      });
+  };
+  const [topicsList, setTopicsList] = React.useState<Topic[]>([]);
 
   //get topics from db
-  const { topics } = await getTopics();
+  useEffect(() => {
+    getTopics()
+  }, [])
+  
 
   return (
     <div>
-      {topics.length && topics.map((topic:Topic) => (
+      {topicsList.length && topicsList.map((topic:Topic) => (
         <div key={topic._id} className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start">
           <div>
             <h2 className="font-bold text-2xl">{topic.title}</h2>
