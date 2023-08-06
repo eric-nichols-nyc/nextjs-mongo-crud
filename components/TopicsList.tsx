@@ -31,7 +31,6 @@ const TopicsList = async () => {
   //get topics from db
   const { topics } = await getTopics();
 
-
   return (
     <div>
       {topics.length && topics.map((topic:Topic) => (
@@ -41,10 +40,10 @@ const TopicsList = async () => {
             <div>{topic.description}</div>
           </div>
           <div className="flex gap-2">
-            <RemoveBtn id={topic._id}/>
             <Link href={`/editTopic/${topic._id}`}>
               <HiPencilAlt size={24} />
             </Link>
+            <RemoveBtn id={topic._id} />
           </div>
         </div>
       ))}
