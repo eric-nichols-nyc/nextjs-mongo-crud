@@ -4,6 +4,7 @@ import RemoveBtn from './RemoveBtn'
 import Link from 'next/link'
 import { HiPencilAlt } from 'react-icons/hi'
 import axios from 'axios'
+import { set } from 'mongoose'
 interface Topic {
   _id: string
   title: string
@@ -20,7 +21,7 @@ const TopicsList = () => {
     axios.get('/api/topics')
       .then(response => {
         // Handle response
-        console.log(response.data);
+        setTopicsList(response.data.topics)
       })
       .catch(err => {
         // Handle errors
