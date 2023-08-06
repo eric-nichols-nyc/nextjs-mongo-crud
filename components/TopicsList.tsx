@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import RemoveBtn from './RemoveBtn'
 import Link from 'next/link'
 import { HiPencilAlt } from 'react-icons/hi'
